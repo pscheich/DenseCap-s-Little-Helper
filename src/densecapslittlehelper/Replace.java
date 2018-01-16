@@ -5,6 +5,7 @@
  */
 package densecapslittlehelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -127,19 +128,29 @@ public class Replace extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ArrayList<Entry> dels = new ArrayList<>();
         for (Entry e : GlobVars.inputList) {
             if (list.contains(e)) {
                 if (e.getText1().contains(jTextField1.getText())) {
                     String foo = "";
                     if (words) {
-                        foo=e.getText1().replace(jTextField1.getText(), jTextField2.getText());
+                        foo = e.getText1().replace(jTextField1.getText(), jTextField2.getText());
+                        e.setText1(foo);
                     } else {
-                        foo=jTextField2.getText();
+                        dels.add(e);
+                        
+                        foo = jTextField2.getText();
+
+                        e.setText1(foo);
+                        GlobVars.outputList.add(e);
+                        
+
                     }
-                    e.setText1(foo);
+                    
                 }
             }
         }
+        GlobVars.inputList.removeAll(dels);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

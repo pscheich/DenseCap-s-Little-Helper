@@ -14,18 +14,18 @@ import java.util.ArrayList;
 public class Entry   implements Comparable<Entry> {
 
     private String text1;
-    private String text2;
+
     private ArrayList<File> files;
 
     public Entry() {
         this.text1 = "";
-        this.text2 = "";
+
         this.files = new ArrayList<File>();
     }
 
-    public Entry(String text1, String text2, ArrayList<File> files) {
+    public Entry(String text1, ArrayList<File> files) {
         this.text1 = text1;
-        this.text2 = text2;
+
         this.files = files;
     }
 
@@ -37,13 +37,6 @@ public class Entry   implements Comparable<Entry> {
         this.text1 = text1;
     }
 
-    public String getText2() {
-        return text2;
-    }
-
-    public void setText2(String text2) {
-        this.text2 = text2;
-    }
 
     public ArrayList<File> getFiles() {
         return files;
@@ -71,7 +64,7 @@ public class Entry   implements Comparable<Entry> {
     public String getJson(){
         String ret="";
         for(File f : files){
-            ret += "\t{\"region_id\": "+f.getfName()+f.getNr()+", \"width\": 495, \"height\": 182, \"image_id\": "+f.getfName()+", \"phrase\": \""+this.text2+"\", \"y\": 0, \"x\": 0} \n";
+            ret += "\t{\"region_id\": "+f.getfName()+f.getNr()+", \"width\": 495, \"height\": 182, \"image_id\": "+f.getfName()+", \"phrase\": \""+this.text1+"\", \"y\": 0, \"x\": 0} \n";
         }
         return ret;
     }

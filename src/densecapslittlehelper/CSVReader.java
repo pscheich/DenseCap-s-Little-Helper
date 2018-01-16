@@ -16,9 +16,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Optional;
 
 public class CSVReader {
 
@@ -50,7 +48,7 @@ public class CSVReader {
                     } else {
                         ArrayList<File> fs = new ArrayList<>();
                         fs.add(f);
-                        Entry e = new Entry(elements[2], "", fs);
+                        Entry e = new Entry(elements[2],  fs);
                         GlobVars.inputList.add(e);
                     }
 
@@ -58,10 +56,7 @@ public class CSVReader {
             }
             Collections.sort(GlobVars.inputList);
 
-        } catch (IOException e) {
-            System.out.println(counter);
-            e.printStackTrace();
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (IOException | ArrayIndexOutOfBoundsException e) {
             System.out.println(counter);
             e.printStackTrace();
         }

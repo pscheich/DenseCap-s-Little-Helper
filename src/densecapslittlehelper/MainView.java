@@ -328,7 +328,7 @@ public class MainView extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,7 +391,7 @@ public class MainView extends javax.swing.JFrame {
         query = query.toLowerCase();
         ArrayList<Entry> searchResult = new ArrayList<>();
         for (Entry e : GlobVars.outputList) {
-            if (e.getText2().contains(query)) {
+            if (e.getText1().contains(query)) {
                 searchResult.add(e);
             }
         }
@@ -401,7 +401,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         for (Entry e : jList1.getSelectedValuesList()) {
-            e.setText2(e.getText1());
+            e.setText1(e.getText1());
             GlobVars.outputList.add(e);
             GlobVars.inputList.remove(e);
             Utils.setModel(input, GlobVars.inputList);
@@ -415,7 +415,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         for (Entry e : jList2.getSelectedValuesList()) {
-            e.setText1(e.getText2());
+            e.setText1(e.getText1());
             GlobVars.inputList.add(e);
             GlobVars.outputList.remove(e);
         }
@@ -436,11 +436,7 @@ public class MainView extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         Replace rv = new Replace("", false, jList1.getSelectedValuesList(), this, true);
         rv.setVisible(true);
-        for (Entry e : jList1.getSelectedValuesList()) {
-            e.setText2(e.getText1());
-            GlobVars.outputList.add(e);
-            GlobVars.inputList.remove(e);
-        }
+
         Utils.setModel(input, GlobVars.inputList);
         jTextField6.setText(GlobVars.inputList.size() + "");
         Utils.setModel(output, GlobVars.outputList);
