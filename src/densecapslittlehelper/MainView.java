@@ -100,7 +100,7 @@ public class MainView extends javax.swing.JFrame {
         jTextField1.setText("DensCap's Little Helper");
         jTextField1.setEnabled(false);
 
-        jTextField2.setText("15.01.2018 v 0.0.1");
+        jTextField2.setText("16.01.2018 v 0.1.0");
         jTextField2.setEnabled(false);
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
@@ -209,6 +209,11 @@ public class MainView extends javax.swing.JFrame {
         });
 
         jButton8.setText("export");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("delete");
         jButton9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -240,10 +245,10 @@ public class MainView extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(37, 37, 37)
                 .addComponent(jButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
                 .addGap(18, 18, 18)
@@ -360,7 +365,7 @@ public class MainView extends javax.swing.JFrame {
         GlobVars.inputPath = jfc.getSelectedFile().getAbsolutePath();
         jTextField3.setText(GlobVars.inputPath);
         GlobVars.inputList.clear();
-        GlobVars.outputList.clear();        
+        GlobVars.outputList.clear();
         CSVReader.doIt(GlobVars.inputPath, GlobVars.lineSep, GlobVars.splitSep);
         Utils.setModel(input, GlobVars.inputList);
         jTextField6.setText(GlobVars.inputList.size() + "");
@@ -413,11 +418,12 @@ public class MainView extends javax.swing.JFrame {
             e.setText1(e.getText2());
             GlobVars.inputList.add(e);
             GlobVars.outputList.remove(e);
-            Utils.setModel(input, GlobVars.inputList);
-            jTextField6.setText(GlobVars.inputList.size() + "");
-            Utils.setModel(output, GlobVars.outputList);
-            jTextField7.setText(GlobVars.outputList.size() + "");
         }
+        Utils.setModel(input, GlobVars.inputList);
+        jTextField6.setText(GlobVars.inputList.size() + "");
+        Utils.setModel(output, GlobVars.outputList);
+        jTextField7.setText(GlobVars.outputList.size() + "");
+
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -430,8 +436,17 @@ public class MainView extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         Replace rv = new Replace("", false, jList1.getSelectedValuesList(), this, true);
         rv.setVisible(true);
+        for (Entry e : jList1.getSelectedValuesList()) {
+            e.setText2(e.getText1());
+            GlobVars.outputList.add(e);
+            GlobVars.inputList.remove(e);
+        }
         Utils.setModel(input, GlobVars.inputList);
         jTextField6.setText(GlobVars.inputList.size() + "");
+        Utils.setModel(output, GlobVars.outputList);
+        jTextField7.setText(GlobVars.outputList.size() + "");
+
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -441,6 +456,11 @@ public class MainView extends javax.swing.JFrame {
         Utils.setModel(input, GlobVars.inputList);
         jTextField6.setText(GlobVars.inputList.size() + "");
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        Export exp = new Export(this,true,Utils.getExport());
+        exp.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments

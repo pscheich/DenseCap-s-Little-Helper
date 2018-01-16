@@ -3,14 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/MEDIA/SolConPro/DenseCapsLittleHelper/src/densecapslittlehelper/MainView.java</file>
-            <file>file:/MEDIA/SolConPro/DenseCapsLittleHelper/src/densecapslittlehelper/CSVReader.java</file>
-            <file>file:/MEDIA/SolConPro/DenseCapsLittleHelper/src/densecapslittlehelper/Entry.java</file>
-            <file>file:/MEDIA/SolConPro/DenseCapsLittleHelper/src/densecapslittlehelper/File.java</file>
-            <file>file:/MEDIA/SolConPro/DenseCapsLittleHelper/src/densecapslittlehelper/Utils.java</file>
-            <file>file:/MEDIA/SolConPro/DenseCapsLittleHelper/src/densecapslittlehelper/Box.java</file>
-            <file>file:/MEDIA/SolConPro/DenseCapsLittleHelper/src/densecapslittlehelper/GlobVars.java</file>
-            <file>file:/MEDIA/SolConPro/DenseCapsLittleHelper/src/densecapslittlehelper/Replace.java</file>
+            <file>file:/MEDIA/DBPM/DenseCap-s-Little-Helper/src/densecapslittlehelper/DenseCapsLittleHelper.java</file>
         </group>
     </open-files>
 </project-private>

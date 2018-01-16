@@ -13,17 +13,20 @@ public class File {
     private String fPath;
     private String fName;
     private Box box;
+    private String nr;
 
-    public File(String fPath, String fName, Box box) {
+    public File(String fPath, String fName, Box box,String nr) {
         this.fPath = fPath;
         this.fName = fName;
         this.box = box;
+        this.nr = nr;
     }
 
     public File() {
         this.fPath = "";
         this.fName = "";
         this.box = new Box();
+        this.nr="";
     }
 
     public String getfPath() {
@@ -48,6 +51,14 @@ public class File {
 
     public void setBox(Box box) {
         this.box = box;
+    }
+
+    public String getNr() {
+        return nr;
+    }
+
+    public void setNr(String nr) {
+        this.nr = nr;
     }
     
     @Override
