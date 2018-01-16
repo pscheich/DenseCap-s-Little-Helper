@@ -34,7 +34,7 @@ public class CSVReader {
                 if (elements[2] != "") {
                     int[] bs = {Integer.parseInt(elements[3]), Integer.parseInt(elements[4]), Integer.parseInt(elements[5]), Integer.parseInt(elements[6])};
                     Box b = new Box(bs);
-                    File f = new File("", elements[0], b);
+                    File f = new File("", elements[0], b,elements[1]);
                     elements[2]=elements[2].toLowerCase();
                     int ii = -1;
                     boolean foo=false;

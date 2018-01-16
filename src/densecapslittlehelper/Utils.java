@@ -20,4 +20,13 @@ public class Utils {
             dlm.addElement(e);
         });
     }
+    
+    public static String getExport(){
+        String ret = "[\n";
+        for (Entry e : GlobVars.outputList){
+            ret+=e.getJson();
+        }
+        ret+="]";
+        return ret;
+    }
 }

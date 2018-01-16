@@ -67,6 +67,14 @@ public class Entry   implements Comparable<Entry> {
         //descending order
         return foo - this.files.size();
     }
+    
+    public String getJson(){
+        String ret="";
+        for(File f : files){
+            ret += "\t{\"region_id\": "+f.getfName()+f.getNr()+", \"width\": 495, \"height\": 182, \"image_id\": "+f.getfName()+", \"phrase\": \""+this.text2+"\", \"y\": 0, \"x\": 0} \n";
+        }
+        return ret;
+    }
 
 //    @Override
 //    public int compareTo(Object t) {
