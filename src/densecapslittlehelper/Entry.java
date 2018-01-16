@@ -68,6 +68,10 @@ public class Entry   implements Comparable<Entry> {
         }
         return ret;
     }
+    
+    public int getCount(){
+        return files.size();
+    }
 
 //    @Override
 //    public int compareTo(Object t) {

@@ -29,4 +29,12 @@ public class Utils {
         ret+="]";
         return ret;
     }
+    
+    public static int getCount(ArrayList<Entry> list){
+        int count=0;
+        for(Entry e : list){
+            count+=e.getCount();
+        }
+        return count;
+    }
 }

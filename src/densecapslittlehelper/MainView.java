@@ -5,9 +5,12 @@
  */
 package densecapslittlehelper;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
+import javax.swing.JTextField;
 
 /**
  *
@@ -123,6 +126,12 @@ public class MainView extends javax.swing.JFrame {
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("input"));
+
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField4KeyPressed(evt);
+            }
+        });
 
         jButton2.setText("search");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -262,6 +271,12 @@ public class MainView extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("output"));
 
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField5KeyPressed(evt);
+            }
+        });
+
         jButton6.setText("search");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -367,36 +382,15 @@ public class MainView extends javax.swing.JFrame {
         GlobVars.inputList.clear();
         GlobVars.outputList.clear();
         CSVReader.doIt(GlobVars.inputPath, GlobVars.lineSep, GlobVars.splitSep);
-        Utils.setModel(input, GlobVars.inputList);
-        jTextField6.setText(GlobVars.inputList.size() + "");
-        Utils.setModel(output, GlobVars.outputList);
-        jTextField7.setText(GlobVars.outputList.size() + "");
+        updateLists();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String query = jTextField4.getText();
-        query = query.toLowerCase();
-        ArrayList<Entry> searchResult = new ArrayList<>();
-        for (Entry e : GlobVars.inputList) {
-            if (e.getText1().contains(query)) {
-                searchResult.add(e);
-            }
-        }
-        Utils.setModel(input, searchResult);
-        jTextField6.setText(input.size() + "");
+        search(input, GlobVars.inputList, jTextField4);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        String query = jTextField5.getText();
-        query = query.toLowerCase();
-        ArrayList<Entry> searchResult = new ArrayList<>();
-        for (Entry e : GlobVars.outputList) {
-            if (e.getText1().contains(query)) {
-                searchResult.add(e);
-            }
-        }
-        Utils.setModel(input, searchResult);
-        jTextField7.setText(output.size() + "");
+        search(output, GlobVars.outputList, jTextField5);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -404,10 +398,7 @@ public class MainView extends javax.swing.JFrame {
             e.setText1(e.getText1());
             GlobVars.outputList.add(e);
             GlobVars.inputList.remove(e);
-            Utils.setModel(input, GlobVars.inputList);
-            jTextField6.setText(GlobVars.inputList.size() + "");
-            Utils.setModel(output, GlobVars.outputList);
-            jTextField7.setText(GlobVars.outputList.size() + "");
+            updateLists();
         }
 
         ///TODO checken, ob es die übersetzung nciht schon  gibt, und ggf hinzufügen.
@@ -419,28 +410,22 @@ public class MainView extends javax.swing.JFrame {
             GlobVars.inputList.add(e);
             GlobVars.outputList.remove(e);
         }
-        Utils.setModel(input, GlobVars.inputList);
-        jTextField6.setText(GlobVars.inputList.size() + "");
-        Utils.setModel(output, GlobVars.outputList);
-        jTextField7.setText(GlobVars.outputList.size() + "");
+        updateLists();
 
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Replace rv = new Replace("", true, jList1.getSelectedValuesList(), this, true);
         rv.setVisible(true);
-        Utils.setModel(input, GlobVars.inputList);
-        jTextField6.setText(GlobVars.inputList.size() + "");
+        updateLists();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Replace rv = new Replace("", false, jList1.getSelectedValuesList(), this, true);
+        String find = jList1.getSelectedValuesList().toString();
+        Replace rv = new Replace(find, false, jList1.getSelectedValuesList(), this, true);
         rv.setVisible(true);
 
-        Utils.setModel(input, GlobVars.inputList);
-        jTextField6.setText(GlobVars.inputList.size() + "");
-        Utils.setModel(output, GlobVars.outputList);
-        jTextField7.setText(GlobVars.outputList.size() + "");
+        updateLists();
 
 
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -454,9 +439,21 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        Export exp = new Export(this,true,Utils.getExport());
+        Export exp = new Export(this, true, Utils.getExport());
         exp.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            search(input, GlobVars.inputList, jTextField4);
+        }
+    }//GEN-LAST:event_jTextField4KeyPressed
+
+    private void jTextField5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            search(output, GlobVars.outputList, jTextField5);
+        }
+    }//GEN-LAST:event_jTextField5KeyPressed
 
     /**
      * @param args the command line arguments
@@ -491,6 +488,29 @@ public class MainView extends javax.swing.JFrame {
                 new MainView().setVisible(true);
             }
         });
+    }
+
+    private void search(DefaultListModel list, ArrayList<Entry> arr, JTextField text) {
+        String query = text.getText();
+        query = query.toLowerCase();
+        ArrayList<Entry> searchResult = new ArrayList<>();
+        for (Entry e : arr) {
+            if (e.getText1().contains(query)) {
+                searchResult.add(e);
+            }
+        }
+        Utils.setModel(list, searchResult);
+        //jTextField6.setText(input.size() + "");
+    }
+
+    private void updateLists() {
+        Utils.setModel(input, GlobVars.inputList);
+        jTextField6.setText(GlobVars.inputList.size() + " / " + Utils.getCount(GlobVars.inputList));
+        Utils.setModel(output, GlobVars.outputList);
+        jTextField7.setText(GlobVars.outputList.size() + " / " + Utils.getCount(GlobVars.outputList));
+
+        jTextField4.setText("");
+        jTextField5.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
