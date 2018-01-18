@@ -5,13 +5,14 @@
  */
 package densecapslittlehelper;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author scheich
  */
-public class Entry   implements Comparable<Entry> {
+public class Entry implements Comparable<Entry>, Serializable {
 
     private String text1;
 
@@ -37,7 +38,6 @@ public class Entry   implements Comparable<Entry> {
         this.text1 = text1;
     }
 
-
     public ArrayList<File> getFiles() {
         return files;
     }
@@ -50,26 +50,32 @@ public class Entry   implements Comparable<Entry> {
     public String toString() {
         return text1 + " (" + files.size() + ")";
     }
+
     public int compareTo(Entry cE) {
 
         int foo = ((Entry) cE).files.size();
 
         //ascending order
         //return this.files.size() - foo;
-
         //descending order
         return foo - this.files.size();
     }
-    
-    public String getJson(){
-        String ret="";
-        for(File f : files){
-            ret += "\t{\"region_id\": "+f.getfName()+f.getNr()+", \"width\": 495, \"height\": 182, \"image_id\": "+f.getfName()+", \"phrase\": \""+this.text1+"\", \"y\": 0, \"x\": 0} \n";
+
+    public String getJson() {
+        String ret = "";
+        for (File f : files) {
+            ret += "\t{\"region_id\": " + f.getfName() + f.getNr() + ","
+                    + " \"width\": " + (f.getBox().getValues()[1]-f.getBox().getValues()[0]) + ","
+                    + " \"height\": " + (f.getBox().getValues()[3]-f.getBox().getValues()[2]) + ","
+                    + " \"image_id\": " + f.getfName() + ","
+                    + " \"phrase\": \"" + this.text1 + "\","
+                    + " \"y\": " + f.getBox().getValues()[2] + ","
+                    + " \"x\": " + f.getBox().getValues()[0] + "} \n";
         }
         return ret;
     }
-    
-    public int getCount(){
+
+    public int getCount() {
         return files.size();
     }
 
@@ -77,5 +83,4 @@ public class Entry   implements Comparable<Entry> {
 //    public int compareTo(Object t) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-
 }

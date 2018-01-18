@@ -5,11 +5,13 @@
  */
 package densecapslittlehelper;
 
+import java.io.Serializable;
+
 /**
  *
  * @author scheich
  */
-public class Box {
+public class Box implements Serializable{
 
     private int[] values = {0, 0, 0, 0};
 

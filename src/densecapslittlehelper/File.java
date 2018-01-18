@@ -5,11 +5,13 @@
  */
 package densecapslittlehelper;
 
+import java.io.Serializable;
+
 /**
  *
  * @author scheich
  */
-public class File {
+public class File implements Serializable {
     private String fPath;
     private String fName;
     private Box box;
