@@ -1,7 +1,7 @@
 # DenseCap-s-Little-Helper
 
 
-![Screenshot](https://i.imgur.com/XC58C79.png)
+![Screenshot](https://raw.githubusercontent.com/pscheich/DenseCap-s-Little-Helper/master/picture.png)
 
 **Requirements**
 
