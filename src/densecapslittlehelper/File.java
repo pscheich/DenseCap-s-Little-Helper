@@ -5,16 +5,25 @@
  */
 package densecapslittlehelper;
 
+import java.io.Serializable;
+
 /**
  *
  * @author scheich
  */
-public class File {
+public class File implements Serializable {
     private String fPath;
     private String fName;
     private Box box;
     private String nr;
 
+    /**
+     *
+     * @param fPath
+     * @param fName
+     * @param box
+     * @param nr
+     */
     public File(String fPath, String fName, Box box,String nr) {
         this.fPath = fPath;
         this.fName = fName;
@@ -22,6 +31,9 @@ public class File {
         this.nr = nr;
     }
 
+    /**
+     *
+     */
     public File() {
         this.fPath = "";
         this.fName = "";
@@ -29,38 +41,74 @@ public class File {
         this.nr="";
     }
 
+    /**
+     *
+     * @return
+     */
     public String getfPath() {
         return fPath;
     }
 
+    /**
+     *
+     * @param fPath
+     */
     public void setfPath(String fPath) {
         this.fPath = fPath;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getfName() {
         return fName;
     }
 
+    /**
+     *
+     * @param fName
+     */
     public void setfName(String fName) {
         this.fName = fName;
     }
 
+    /**
+     *
+     * @return
+     */
     public Box getBox() {
         return box;
     }
 
+    /**
+     *
+     * @param box
+     */
     public void setBox(Box box) {
         this.box = box;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNr() {
         return nr;
     }
 
+    /**
+     *
+     * @param nr
+     */
     public void setNr(String nr) {
         this.nr = nr;
     }
     
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString(){
         return fName;

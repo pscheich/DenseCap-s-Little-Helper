@@ -16,12 +16,21 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Optional;
+import javax.swing.JOptionPane;
 
+/**
+ *
+ * @author scheich
+ */
 public class CSVReader {
 
+    /**
+     *
+     * @param csvFile
+     * @param line
+     * @param cvsSplitBy
+     */
     public static void doIt(String csvFile, String line, String cvsSplitBy) {
         int counter = 0;
         ArrayList<Entry> arr = new ArrayList<>();
@@ -34,14 +43,14 @@ public class CSVReader {
                 if (elements[2] != "") {
                     int[] bs = {Integer.parseInt(elements[3]), Integer.parseInt(elements[4]), Integer.parseInt(elements[5]), Integer.parseInt(elements[6])};
                     Box b = new Box(bs);
-                    File f = new File("", elements[0], b,elements[1]);
-                    elements[2]=elements[2].toLowerCase();
+                    File f = new File("", elements[0], b, elements[1]);
+                    elements[2] = elements[2].toLowerCase();
                     int ii = -1;
-                    boolean foo=false;
+                    boolean foo = false;
                     for (Entry e : GlobVars.inputList) {
                         ii++;
                         if (e.getText1().equals(elements[2])) {
-                            foo=true;
+                            foo = true;
                             break;
                         }
                     }
@@ -50,7 +59,7 @@ public class CSVReader {
                     } else {
                         ArrayList<File> fs = new ArrayList<>();
                         fs.add(f);
-                        Entry e = new Entry(elements[2], "", fs);
+                        Entry e = new Entry(elements[2], fs);
                         GlobVars.inputList.add(e);
                     }
 
@@ -58,12 +67,11 @@ public class CSVReader {
             }
             Collections.sort(GlobVars.inputList);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println(counter);
-            e.printStackTrace();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println(counter);
-            e.printStackTrace();
+            //e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e,"Error....",JOptionPane.ERROR_MESSAGE);
+
         }
     }
 

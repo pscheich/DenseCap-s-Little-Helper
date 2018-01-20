@@ -12,10 +12,30 @@ import java.util.ArrayList;
  * @author scheich
  */
 public class GlobVars {
+
+    /**
+     *
+     */
     public static  String inputPath="";
+
+    /**
+     *
+     */
     public static  ArrayList<Entry> inputList = new ArrayList<>();
+
+    /**
+     *
+     */
     public static  ArrayList<Entry> outputList = new ArrayList<>();
+
+    /**
+     *
+     */
     public final static  String lineSep ="";
+
+    /**
+     *
+     */
     public final static  String splitSep =",";
     
 }
