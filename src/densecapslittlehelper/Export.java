@@ -13,12 +13,21 @@ public class Export extends javax.swing.JDialog {
 
     /**
      * Creates new form Export
+     * @param parent
+     * @param modal
      */
     public Export(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-        public Export(java.awt.Frame parent, boolean modal,String text) {
+
+    /**
+     *
+     * @param parent
+     * @param modal
+     * @param text
+     */
+    public Export(java.awt.Frame parent, boolean modal,String text) {
         super(parent, modal);
         initComponents();
         jTextArea1.setText(text);

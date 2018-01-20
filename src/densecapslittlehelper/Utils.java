@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +21,11 @@ import javax.swing.JFileChooser;
  */
 public class Utils {
 
+    /**
+     *
+     * @param dlm
+     * @param arr
+     */
     public static void setModel(DefaultListModel dlm, ArrayList arr) {
         dlm.removeAllElements();
         arr.forEach((e) -> {
@@ -27,6 +33,10 @@ public class Utils {
         });
     }
 
+    /**
+     *
+     * @return
+     */
     public static String getExport() {
         String ret = "[\n";
         for (Entry e : GlobVars.outputList) {
@@ -36,6 +46,11 @@ public class Utils {
         return ret;
     }
 
+    /**
+     *
+     * @param list
+     * @return
+     */
     public static int getCount(ArrayList<Entry> list) {
         int count = 0;
         for (Entry e : list) {
@@ -44,39 +59,49 @@ public class Utils {
         return count;
     }
 
-    public static void save() {
-        ObjectOutputStream oos = null;
-        FileOutputStream fos = null;
-        try {
-            JFileChooser jfc = new JFileChooser();
-            int foo = jfc.showSaveDialog(null);
-            if (foo == JFileChooser.APPROVE_OPTION) {
-            String path = jfc.getSelectedFile().getAbsolutePath();          
-                fos = new FileOutputStream(path);
-                oos = new ObjectOutputStream(fos);
-                ArrayList<Object> outs = new ArrayList<>();
-                outs.add(GlobVars.inputList);
-                outs.add(GlobVars.outputList);
-                oos.writeObject(outs);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (oos != null) {
-                try {
-                    oos.close();
-                } catch (IOException e) {
-                }
-            }
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                }
-            }
+    /**
+     *
+     * @param entry
+     */
+    public static void i2o(Entry entry) {
+        if (!containsName(GlobVars.outputList, entry.getText1())) {
+            GlobVars.outputList.add(entry);
+            GlobVars.inputList.remove(entry);
+        } else {
+            GlobVars.outputList.stream().filter(o -> o.getText1().equals(entry.getText1())).findFirst().get().getFiles().addAll(entry.getFiles());
+            GlobVars.inputList.remove(entry);
         }
+
     }
 
+    /**
+     *
+     * @param entry
+     */
+    public static void o2i(Entry entry) {
+        if (!containsName(GlobVars.inputList, entry.getText1())) {
+            GlobVars.inputList.add(entry);
+            GlobVars.outputList.remove(entry);
+        } else {
+            GlobVars.inputList.stream().filter(o -> o.getText1().equals(entry.getText1())).findFirst().get().getFiles().addAll(entry.getFiles());
+            GlobVars.outputList.remove(entry);
+        }
+
+    }
+
+    /**
+     *
+     * @param list
+     * @param name
+     * @return
+     */
+    public static boolean containsName(final ArrayList<Entry> list, final String name) {
+        return list.stream().filter(o -> o.getText1().equals(name)).findFirst().isPresent();
+    }
+
+    /**
+     *
+     */
     public static void open() {
         GlobVars.inputList.clear();
         GlobVars.outputList.clear();
@@ -96,10 +121,8 @@ public class Utils {
                     GlobVars.outputList = ((ArrayList<Entry>) ((ArrayList<Object>) obj).get(1));
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e,"Error....",JOptionPane.ERROR_MESSAGE);
         } finally {
             if (ois != null) {
                 try {
@@ -110,6 +133,42 @@ public class Utils {
             if (fis != null) {
                 try {
                     fis.close();
+                } catch (IOException e) {
+                }
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    public static void save() {
+        ObjectOutputStream oos = null;
+        FileOutputStream fos = null;
+        try {
+            JFileChooser jfc = new JFileChooser();
+            int foo = jfc.showSaveDialog(null);
+            if (foo == JFileChooser.APPROVE_OPTION) {
+                String path = jfc.getSelectedFile().getAbsolutePath();
+                fos = new FileOutputStream(path);
+                oos = new ObjectOutputStream(fos);
+                ArrayList<Object> outs = new ArrayList<>();
+                outs.add(GlobVars.inputList);
+                outs.add(GlobVars.outputList);
+                oos.writeObject(outs);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e,"Error....",JOptionPane.ERROR_MESSAGE);
+        } finally {
+            if (oos != null) {
+                try {
+                    oos.close();
+                } catch (IOException e) {
+                }
+            }
+            if (fos != null) {
+                try {
+                    fos.close();
                 } catch (IOException e) {
                 }
             }

@@ -5,6 +5,7 @@
  */
 package densecapslittlehelper;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +22,24 @@ public class Replace extends javax.swing.JDialog {
     private boolean words;
     private String find;
 
+    /**
+     *
+     * @param parent
+     * @param modal
+     */
     public Replace(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
 
+    /**
+     *
+     * @param find
+     * @param words
+     * @param arr
+     * @param parent
+     * @param modal
+     */
     public Replace(String find, boolean words, List<Entry> arr, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -60,9 +74,19 @@ public class Replace extends javax.swing.JDialog {
 
         jLabel2.setText("Replace with");
 
-        jTextField1.setEditable(false);
         jTextField1.setText("jTextField1");
         jTextField1.setEnabled(false);
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField2KeyPressed(evt);
+            }
+        });
 
         jButton1.setText("OK");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -132,35 +156,24 @@ public class Replace extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ArrayList<Entry> dels = new ArrayList<>();
-        for (Entry e : GlobVars.inputList) {
-            if (list.contains(e)) {
-                //if (e.getText1().contains(find)) {
-                String foo = "";
-                if (words) {
-                    this.find = jTextField1.getText();
-                    foo = e.getText1().replace(find, jTextField2.getText());
-                    e.setText1(foo);
-                } else {
-                    dels.add(e);
-
-                    foo = jTextField2.getText();
-
-                    e.setText1(foo);
-                    GlobVars.outputList.add(e);
-
-                }
-
-                //}
-            }
-        }
-        GlobVars.inputList.removeAll(dels);
-        this.dispose();
+        ok();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            ok();
+        }
+    }//GEN-LAST:event_jTextField2KeyPressed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            ok();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -204,6 +217,25 @@ public class Replace extends javax.swing.JDialog {
         });
     }
 
+    private void ok() {
+        if (words) {
+            for (Entry e : GlobVars.inputList) {
+                if (list.contains(e)) {
+                    if (words) { //nur einzelne Woerter ersetzen
+                        this.find = jTextField1.getText();
+                        String foo = e.getText1().replace(find, jTextField2.getText());
+                        e.setText1(foo);
+                    }
+                }
+            }
+        } else {
+            for (Entry e : list) {
+                e.setText1(jTextField2.getText());
+                Utils.i2o(e);
+            }
+        }
+        this.dispose();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
