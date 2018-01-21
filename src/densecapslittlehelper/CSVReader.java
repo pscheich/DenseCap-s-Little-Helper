@@ -31,6 +31,14 @@ public class CSVReader {
      * @param line
      * @param cvsSplitBy
      */
+    
+//    id - id of the bounding box within the image
+//    name - name of the bounding box within the imagename - name of the bounding box within the image
+//    image - image the bounding box is associated with
+//    xMin - min x value of the bounding box
+//    xMax - max x value of the bounding box
+//    yMin - min y value of the bounding box
+//    yMax - max y value of the bounding box
     public static void doIt(String csvFile, String line, String cvsSplitBy) {
         int counter = 0;
         ArrayList<Entry> arr = new ArrayList<>();

@@ -42,6 +42,8 @@ public class Utils {
         for (Entry e : GlobVars.outputList) {
             ret += e.getJson();
         }
+        ret=ret.substring(0, ret.length() - 3);
+        ret+=" \n";
         ret += "]";
         return ret;
     }

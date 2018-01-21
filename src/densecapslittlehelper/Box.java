@@ -12,7 +12,10 @@ import java.io.Serializable;
  * @author scheich
  */
 public class Box implements Serializable{
-
+//    xMin - min x value of the bounding box
+//    xMax - max x value of the bounding box
+//    yMin - min y value of the bounding box
+//    yMax - max y value of the bounding box
     private int[] values = {0, 0, 0, 0};
 
     /**
