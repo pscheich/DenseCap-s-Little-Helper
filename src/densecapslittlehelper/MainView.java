@@ -7,6 +7,7 @@ package densecapslittlehelper;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import javax.swing.DefaultListModel;
@@ -706,6 +707,8 @@ public class MainView extends javax.swing.JFrame {
     }
 
     private void updateLists() {
+        Collections.sort(GlobVars.inputList);
+        Collections.sort(GlobVars.outputList);
         Utils.setModel(input, GlobVars.inputList);
         jTextField6.setText(GlobVars.inputList.size() + " / " + Utils.getCount(GlobVars.inputList));
         Utils.setModel(output, GlobVars.outputList);
