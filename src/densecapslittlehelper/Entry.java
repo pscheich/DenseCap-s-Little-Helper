@@ -117,13 +117,14 @@ public class Entry implements Comparable<Entry>, Serializable {
     public String getJson() {
         String ret = "";
         for (File f : files) {
-            ret += "\t{\"region_id\": " + f.getNr() + f.getfName()  + ","
-                    + " \"width\": " + (f.getBox().getValues()[1]-f.getBox().getValues()[0]) + ","
+            String image = (f.getfName().replaceAll("[\\D.]", ""))+f.getNr();
+            ret += "\t{\"id\": " + image+f.getNr()  + ","
+                    + " \"image\": " + image + ","
                     + " \"height\": " + (f.getBox().getValues()[3]-f.getBox().getValues()[2]) + ","
-                    + " \"image_id\": " + f.getfName() + ","
+                    + " \"width\": " + (f.getBox().getValues()[1]-f.getBox().getValues()[0]) + ","
                     + " \"phrase\": \"" + this.text1 + "\","
-                    + " \"y\": " + f.getBox().getValues()[2] + ","
-                    + " \"x\": " + f.getBox().getValues()[0] + "} \n";
+                    + " \"x\": " + f.getBox().getValues()[0] + ","
+                    + " \"y\": " + f.getBox().getValues()[2] + "}, \n";
         }
         return ret;
     }

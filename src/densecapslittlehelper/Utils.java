@@ -11,6 +11,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -42,6 +47,8 @@ public class Utils {
         for (Entry e : GlobVars.outputList) {
             ret += e.getJson();
         }
+        ret = ret.substring(0, ret.length() - 3);
+        ret += " \n";
         ret += "]";
         return ret;
     }
@@ -173,5 +180,39 @@ public class Utils {
                 }
             }
         }
+    }
+    public static ArrayList<String>  getListtoStrings(ArrayList<Entry> arr){
+        ArrayList<String>ret = new ArrayList<String>();
+        arr.forEach(e->ret.add(e.getText1()));
+        return ret;
+    }
+    public static LinkedHashMap<String, Integer> sortHashMapByValues(
+            HashMap<String, Integer> passedMap) {
+        List<String> mapKeys = new ArrayList<>(passedMap.keySet());
+        List<Integer> mapValues = new ArrayList<>(passedMap.values());
+        Collections.sort(mapValues, Collections.reverseOrder());
+        Collections.sort(mapKeys, Collections.reverseOrder());
+
+        LinkedHashMap<String, Integer> sortedMap
+                = new LinkedHashMap<>();
+
+        Iterator<Integer> valueIt = mapValues.iterator();
+        while (valueIt.hasNext()) {
+            Integer val = valueIt.next();
+            Iterator<String> keyIt = mapKeys.iterator();
+
+            while (keyIt.hasNext()) {
+                String key = keyIt.next();
+                Integer comp1 = passedMap.get(key);
+                Integer comp2 = val;
+
+                if (comp1.equals(comp2)) {
+                    keyIt.remove();
+                    sortedMap.put(key, val);
+                    break;
+                }
+            }
+        }
+        return sortedMap;
     }
 }
