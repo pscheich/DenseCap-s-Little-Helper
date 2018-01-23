@@ -108,10 +108,10 @@ public class Utils {
         ObjectInputStream ois = null;
         FileInputStream fis = null;
         try {
-            JFileChooser jfc = new JFileChooser();
-            int foo = jfc.showOpenDialog(null);
+
+            int foo = GlobVars.jfc.showOpenDialog(null);
             if (foo == JFileChooser.APPROVE_OPTION) {
-                String path = jfc.getSelectedFile().getAbsolutePath();
+                String path = GlobVars.jfc.getSelectedFile().getAbsolutePath();
                 fis = new FileInputStream(path);
                 ois = new ObjectInputStream(fis);
                 Object obj = ois.readObject();
@@ -122,7 +122,7 @@ public class Utils {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e,"Error....",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, "Error....", JOptionPane.ERROR_MESSAGE);
         } finally {
             if (ois != null) {
                 try {
@@ -146,10 +146,10 @@ public class Utils {
         ObjectOutputStream oos = null;
         FileOutputStream fos = null;
         try {
-            JFileChooser jfc = new JFileChooser();
-            int foo = jfc.showSaveDialog(null);
+
+            int foo = GlobVars.jfc.showSaveDialog(null);
             if (foo == JFileChooser.APPROVE_OPTION) {
-                String path = jfc.getSelectedFile().getAbsolutePath();
+                String path = GlobVars.jfc.getSelectedFile().getAbsolutePath();
                 fos = new FileOutputStream(path);
                 oos = new ObjectOutputStream(fos);
                 ArrayList<Object> outs = new ArrayList<>();
@@ -158,7 +158,7 @@ public class Utils {
                 oos.writeObject(outs);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e,"Error....",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, "Error....", JOptionPane.ERROR_MESSAGE);
         } finally {
             if (oos != null) {
                 try {

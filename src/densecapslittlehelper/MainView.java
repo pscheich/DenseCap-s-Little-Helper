@@ -8,8 +8,6 @@ package densecapslittlehelper;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import javax.swing.JFileChooser;
-import javax.swing.JList;
 import javax.swing.JTextField;
 
 /**
@@ -402,9 +400,8 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JFileChooser jfc = new JFileChooser();
-        jfc.showOpenDialog(null);
-        GlobVars.inputPath = jfc.getSelectedFile().getAbsolutePath();
+        GlobVars.jfc.showOpenDialog(null);
+        GlobVars.inputPath = GlobVars.jfc.getSelectedFile().getAbsolutePath();
         jTextField3.setText(GlobVars.inputPath);
         GlobVars.inputList.clear();
         GlobVars.outputList.clear();
