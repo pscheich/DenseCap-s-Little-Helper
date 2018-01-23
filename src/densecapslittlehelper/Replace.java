@@ -21,6 +21,7 @@ public class Replace extends javax.swing.JDialog {
     private List<Entry> list;
     private boolean words;
     private String find;
+    private boolean startsearch = false;
 
     /**
      *
@@ -41,6 +42,7 @@ public class Replace extends javax.swing.JDialog {
      * @param modal
      */
     public Replace(String find, boolean words, List<Entry> arr, java.awt.Frame parent, boolean modal) {
+        
         super(parent, modal);
         initComponents();
         this.list = arr;
@@ -52,6 +54,7 @@ public class Replace extends javax.swing.JDialog {
             Utils.getListtoStrings(GlobVars.outputList).forEach(e -> jComboBox1.addItem(e));
         }
         jComboBox1.setSelectedIndex(-1);
+        this.startsearch=true;
 
     }
 
@@ -101,6 +104,11 @@ public class Replace extends javax.swing.JDialog {
         });
 
         jComboBox1.setEditable(true);
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -164,10 +172,29 @@ public class Replace extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            ok();
-        }
+//        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+//            ok();
+//        }
     }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        
+//        if (startsearch ) {
+//            String text = jComboBox1.getSelectedItem().toString();
+//            jComboBox1.removeAllItems();
+//            for(Entry e  : GlobVars.inputList){
+//                if (e.getText1().contains(jComboBox1.toString())) {
+//                    jComboBox1.addItem(e.getText1());
+//                }
+//            }
+////            Utils.getListtoStrings(GlobVars.outputList)
+////            .forEach(e -> {
+////                if (e.contains(jComboBox1.toString())) {
+////                    jComboBox1.addItem(e);
+////                }
+////            });
+//        }
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     /**
      * @param args the command line arguments

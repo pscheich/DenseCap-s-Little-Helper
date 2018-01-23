@@ -115,10 +115,10 @@ public class Utils {
         ObjectInputStream ois = null;
         FileInputStream fis = null;
         try {
-            JFileChooser jfc = new JFileChooser();
-            int foo = jfc.showOpenDialog(null);
+            GlobVars.jfc = new JFileChooser();
+            int foo = GlobVars.jfc.showOpenDialog(null);
             if (foo == JFileChooser.APPROVE_OPTION) {
-                String path = jfc.getSelectedFile().getAbsolutePath();
+                String path = GlobVars.jfc.getSelectedFile().getAbsolutePath();
                 fis = new FileInputStream(path);
                 ois = new ObjectInputStream(fis);
                 Object obj = ois.readObject();
@@ -153,10 +153,10 @@ public class Utils {
         ObjectOutputStream oos = null;
         FileOutputStream fos = null;
         try {
-            JFileChooser jfc = new JFileChooser();
-            int foo = jfc.showSaveDialog(null);
+            GlobVars.jfc = new JFileChooser();
+            int foo = GlobVars.jfc.showSaveDialog(null);
             if (foo == JFileChooser.APPROVE_OPTION) {
-                String path = jfc.getSelectedFile().getAbsolutePath();
+                String path = GlobVars.jfc.getSelectedFile().getAbsolutePath();
                 fos = new FileOutputStream(path);
                 oos = new ObjectOutputStream(fos);
                 ArrayList<Object> outs = new ArrayList<>();
@@ -181,11 +181,52 @@ public class Utils {
             }
         }
     }
-    public static ArrayList<String>  getListtoStrings(ArrayList<Entry> arr){
-        ArrayList<String>ret = new ArrayList<String>();
-        arr.forEach(e->ret.add(e.getText1()));
+
+    public static ArrayList<String> getListtoStrings(ArrayList<Entry> arr) {
+        ArrayList<String> ret = new ArrayList<String>();
+        arr.forEach(e -> ret.add(e.getText1()));
         return ret;
     }
+
+    public static void deleteFileFromInput(File f) {
+        Iterator<Entry> i = GlobVars.inputList.iterator();
+        outerloop:
+        while (i.hasNext()) {
+            Entry e = i.next();
+            Iterator<File> it = e.getFiles().iterator();
+            while (it.hasNext()) {
+                File fit = it.next();
+                if (fit == f) {
+                    it.remove();
+                    if (e.getFiles().size() == 0) {
+                        i.remove();
+                    }
+                    break outerloop;
+
+                }
+            }
+        }
+    }
+        public static void deleteFileFromOutput(File f) {
+        Iterator<Entry> i = GlobVars.outputList.iterator();
+        outerloop:
+        while (i.hasNext()) {
+            Entry e = i.next();
+            Iterator<File> it = e.getFiles().iterator();
+            while (it.hasNext()) {
+                File fit = it.next();
+                if (fit == f) {
+                    it.remove();
+                    if (e.getFiles().size() == 0) {
+                        i.remove();
+                    }
+                    break outerloop;
+
+                }
+            }
+        }
+    }
+
     public static LinkedHashMap<String, Integer> sortHashMapByValues(
             HashMap<String, Integer> passedMap) {
         List<String> mapKeys = new ArrayList<>(passedMap.keySet());
