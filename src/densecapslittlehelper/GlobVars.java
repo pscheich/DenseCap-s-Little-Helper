@@ -17,8 +17,8 @@ public class GlobVars {
     /**
      *
      */
-    public static  String inputPath="";
-
+    public static  String inputPathCSV="";
+public static  String inputPathIMG="";
     /**
      *
      */

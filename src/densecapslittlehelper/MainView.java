@@ -8,7 +8,11 @@ package densecapslittlehelper;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import javax.swing.DefaultListModel;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -45,6 +49,8 @@ public class MainView extends javax.swing.JFrame {
         header = new javax.swing.JPanel();
         jTextField3 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jTextField8 = new javax.swing.JTextField();
+        jButton13 = new javax.swing.JButton();
         footer = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
@@ -65,6 +71,7 @@ public class MainView extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jTextField5 = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
@@ -79,10 +86,20 @@ public class MainView extends javax.swing.JFrame {
         jTextField3.setText("input path");
         jTextField3.setEnabled(false);
 
-        jButton1.setText("choose input");
+        jButton1.setText("choose csv");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jTextField8.setText("input path");
+        jTextField8.setEnabled(false);
+
+        jButton13.setText("choose pictures");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
             }
         });
 
@@ -92,9 +109,13 @@ public class MainView extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField3)
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField8)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 1095, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         headerLayout.setVerticalGroup(
@@ -103,7 +124,11 @@ public class MainView extends javax.swing.JFrame {
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addGap(0, 13, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton13))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jTextField1.setText("DensCap's Little Helper");
@@ -146,6 +171,11 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         jTextField6.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
@@ -190,7 +220,7 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(info))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,6 +292,13 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
+        jButton12.setText("check images");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -270,18 +307,19 @@ public class MainView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addGap(0, 92, Short.MAX_VALUE)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -297,7 +335,9 @@ public class MainView extends javax.swing.JFrame {
                 .addComponent(jButton9)
                 .addGap(162, 162, 162)
                 .addComponent(jButton7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton10)
@@ -321,6 +361,11 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
+        jList2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jList2);
 
         jLabel2.setText("elements:");
@@ -367,7 +412,7 @@ public class MainView extends javax.swing.JFrame {
                     .addComponent(jButton6)
                     .addComponent(info1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -425,12 +470,13 @@ public class MainView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        GlobVars.jfc = new JFileChooser();
         GlobVars.jfc.showOpenDialog(null);
-        GlobVars.inputPath = GlobVars.jfc.getSelectedFile().getAbsolutePath();
-        jTextField3.setText(GlobVars.inputPath);
+        GlobVars.inputPathCSV = GlobVars.jfc.getSelectedFile().getAbsolutePath();
+        jTextField3.setText(GlobVars.inputPathCSV);
         GlobVars.inputList.clear();
         GlobVars.outputList.clear();
-        CSVReader.doIt(GlobVars.inputPath, GlobVars.lineSep, GlobVars.splitSep);
+        CSVReader.doIt(GlobVars.inputPathCSV, GlobVars.lineSep, GlobVars.splitSep);
         updateLists();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -508,7 +554,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         Utils.open();
-        GlobVars.inputPath = "";
+        GlobVars.inputPathCSV = "";
         updateLists();
     }//GEN-LAST:event_jButton11ActionPerformed
 
@@ -525,16 +571,16 @@ public class MainView extends javax.swing.JFrame {
         }
         String foo = "";
         hm = Utils.sortHashMapByValues(hm);
-                
+
         for (Object word : hm.keySet()) {
-            foo += word + " " + (Integer) hm.get(word )+ "\n";
+            foo += word + " " + (Integer) hm.get(word) + "\n";
         }
         Export exp = new Export(this, true, foo);
         exp.setVisible(true);
     }//GEN-LAST:event_infoActionPerformed
 
     private void info1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_info1ActionPerformed
-               HashMap<String, Integer> hm = new HashMap<>();
+        HashMap<String, Integer> hm = new HashMap<>();
         for (Entry e : GlobVars.outputList) {
             for (String s : e.getText1().split(" ")) {
                 if (!hm.containsKey(s)) {
@@ -546,13 +592,70 @@ public class MainView extends javax.swing.JFrame {
         }
         String foo = "";
         hm = Utils.sortHashMapByValues(hm);
-                
+
         for (Object word : hm.keySet()) {
-            foo += word + " " + (Integer) hm.get(word )+ "\n";
+            foo += word + " " + (Integer) hm.get(word) + "\n";
         }
         Export exp = new Export(this, true, foo);
         exp.setVisible(true);
     }//GEN-LAST:event_info1ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        int count = 0;
+        String text = "";
+        for (Entry e : GlobVars.inputList) {
+            Iterator<File> it = e.getFiles().iterator();
+            while (it.hasNext()) {
+                File f = it.next();
+                if (f.getBox().getValues()[0] == f.getBox().getValues()[1] || f.getBox().getValues()[2] == f.getBox().getValues()[3]) {
+                    text += e.getText1() + "\n";
+                    it.remove();
+                    count++;
+                }
+            }
+        }
+        for (Entry e : GlobVars.outputList) {
+            Iterator<File> it = e.getFiles().iterator();
+            while (it.hasNext()) {
+                File f = it.next();
+                if (f.getBox().getValues()[0] == f.getBox().getValues()[1] || f.getBox().getValues()[2] == f.getBox().getValues()[3]) {
+                    text += e.getText1() + "\n";
+                    it.remove();
+                    count++;
+                }
+            }
+        }
+        JOptionPane.showMessageDialog(this,
+                "Found and delete " + count + " Images with no height or width. \n" + text,
+                "Warning",
+                JOptionPane.WARNING_MESSAGE);
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        if (evt.getClickCount() == 2) {
+            Viewer.show(jList1.getSelectedValue(),true);
+            search(input, GlobVars.inputList, jTextField4);
+        }
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        GlobVars.jfc = new JFileChooser();
+        GlobVars.jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        //
+        // disable the "All files" option.
+        //
+        GlobVars.jfc.setAcceptAllFileFilterUsed(false);
+        GlobVars.jfc.showOpenDialog(this);
+        GlobVars.inputPathIMG = GlobVars.jfc.getSelectedFile().toString();
+        jTextField8.setText(GlobVars.inputPathIMG);
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
+        if (evt.getClickCount() == 2) {
+            Viewer.show(jList2.getSelectedValue(),false);
+            search(output, GlobVars.outputList, jTextField5);
+        }
+    }//GEN-LAST:event_jList2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -620,6 +723,8 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -645,5 +750,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
 }
