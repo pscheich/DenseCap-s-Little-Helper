@@ -135,7 +135,7 @@ public class MainView extends javax.swing.JFrame {
         jTextField1.setText("DensCap's Little Helper");
         jTextField1.setEnabled(false);
 
-        jTextField2.setText("23.01.2018 v 0.3.0");
+        jTextField2.setText("24.01.2018 v 0.3.1");
         jTextField2.setEnabled(false);
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
@@ -694,6 +694,7 @@ public class MainView extends javax.swing.JFrame {
     }
 
     private void search(DefaultListModel list, ArrayList<Entry> arr, JTextField text) {
+        Collections.sort(arr);
         String query = text.getText();
         query = query.toLowerCase();
         ArrayList<Entry> searchResult = new ArrayList<>();

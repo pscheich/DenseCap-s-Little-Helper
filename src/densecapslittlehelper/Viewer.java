@@ -6,11 +6,17 @@
 package densecapslittlehelper;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import javax.swing.BoxLayout;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,85 +32,99 @@ import javax.swing.JScrollPane;
  */
 public class Viewer {
 
-//    public static void main(String[] args) {
-//        String[] items = {"One", "Two", "Three", "Four", "Five"};
-//        JComboBox combo = new JComboBox(items);
-//        JTextField field1 = new JTextField("1234.56");
-//        JTextField field2 = new JTextField("9876.54");
-//        JPanel panel = new JPanel(new GridLayout(0, 1));
-//        panel.add(combo);
-//        panel.add(new JLabel("Field 1:"));
-//        panel.add(field1);
-//        panel.add(new JLabel("Field 2:"));
-//        panel.add(field2);
-//        int result = JOptionPane.showConfirmDialog(null, panel, "Test",
-//                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-//        if (result == JOptionPane.OK_OPTION) {
-//            System.out.println(combo.getSelectedItem()
-//                    + " " + field1.getText()
-//                    + " " + field2.getText());
-//        } else {
-//            System.out.println("Cancelled");
-//        }
-//    }
+    private static JScrollPane scrollPane;
+    private static ArrayList<File> delList;
+public static void main(String[] args){
+    show(new Entry(),false);
+}
     public static void show(Entry e, boolean input) {
-
+        delList = new ArrayList<>();
         JFrame F = new JFrame();
         JDialog d = new JDialog(F, "Viewer", true);
+
+        Panel all = new Panel();
+        setscrollPane(e);
+        all.add(scrollPane);
+        Panel footer = new Panel();
+        footer.setLayout(new BoxLayout(footer, BoxLayout.Y_AXIS));
+        JButton bdel = new JButton("delete");
+        bdel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                for (File filedel : delList) {
+                    if (input) {
+                        Utils.deleteFileFromInput(filedel);
+                    } else {
+                        Utils.deleteFileFromOutput(filedel);
+                    }
+                }
+                d.dispose();
+            }
+        });
+        JButton bclose = new JButton("close");
+        bclose.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                d.dispose();
+            }
+        });
+        footer.add(bdel);
+        footer.add(bclose);
+
+        all.add(footer);
+        d.add(all, BorderLayout.NORTH);
+        d.pack();
+        d.setVisible(true);
+
+    }
+
+    private static void setscrollPane(Entry e) {
+
         JPanel panel = new JPanel(new GridLayout((e.getFiles().size() / 8) + 1, 8, 0, 0));
-        JScrollPane scrollPane = new JScrollPane(panel,
+        scrollPane = new JScrollPane(panel,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        String file = GlobVars.inputPathIMG;
+        scrollPane.setMaximumSize(new Dimension(720, 720));
         for (File f : e.getFiles()) {
-            ImageIcon icon = new ImageIcon(file + "/" + f.getfName());
-            Image image = icon.getImage(); // transform it 
-            int x = f.getBox().getValues()[0];
-            int y = f.getBox().getValues()[2];
-            int w = f.getBox().getValues()[1] - f.getBox().getValues()[0];
-            int h = f.getBox().getValues()[3] - f.getBox().getValues()[2];
+            JButton b = new JButton(getIcon(f));
+            b.setPreferredSize(new Dimension(120, 120));
+            b.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+                    if (delList.contains(f)) {
+                        delList.remove(f);
+                        b.setIcon(getIcon(f));
+                    } else {
+                        delList.add(f);
+                        b.setIcon(new javax.swing.ImageIcon(getClass().getResource("/densecapslittlehelper/trash.png")));
+                    }
+                }
+            });
+            panel.add(b);
+        }
+
+    }
+
+    private static ImageIcon getIcon(File f) {
+        String file = GlobVars.inputPathIMG;
+        ImageIcon icon = new ImageIcon(file + "/" + f.getfName());
+        Image image = icon.getImage(); // transform it 
+        int x = f.getBox().getValues()[0];
+        int y = f.getBox().getValues()[2];
+        int w = f.getBox().getValues()[1] - f.getBox().getValues()[0];
+        int h = f.getBox().getValues()[3] - f.getBox().getValues()[2];
 //    xMin - min x value of the bounding box
 //    xMax - max x value of the bounding box
 //    yMin - min y value of the bounding box
 //    yMax - max y value of the bounding box
 
-            BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-            dst.getGraphics().drawImage(image, 0, 0, w, h, x, y, x + w, y + h, null);
+        BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        dst.getGraphics().drawImage(image, 0, 0, w, h, x, y, x + w, y + h, null);
 
-            icon = new ImageIcon(resizeImage((Image) dst, 120, 120, true));
-            //  icon = new ImageIcon(dst.getScaledInstance(xx, yy, java.awt.Image.SCALE_SMOOTH));
-            // JLabel l = new JLabel(icon);
-            JButton b = new JButton(icon);
-            b.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent ae) {
-                    int reply = JOptionPane.showConfirmDialog(null,
-                            "Do you want to delete File " + f.getfName() + "\n"
-                            + e.getText1() + "\n",
-                            "Delete file?",
-                            JOptionPane.YES_NO_OPTION);
-                    if (reply == JOptionPane.YES_OPTION) {
-                        if (input) {
-                            Utils.deleteFileFromInput(f);
-                        } else {
-                            Utils.deleteFileFromOutput(f);
-                        };
-                        d.dispose();
-                    }
-                }
-            });
-
-            panel.add(b);
-            //  if (++count >= 53) {
-            //       break;
-            //    }
-        }
-        d.add(scrollPane, BorderLayout.CENTER);
-        d.pack();
-        // F.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        d.setVisible(true);
-
+        icon = new ImageIcon(resizeImage((Image) dst, 120, 120, true));
+        //  icon = new ImageIcon(dst.getScaledInstance(xx, yy, java.awt.Image.SCALE_SMOOTH));
+        // JLabel l = new JLabel(icon);
+        return icon;
     }
 
     /**

@@ -196,7 +196,8 @@ public class Utils {
             Iterator<File> it = e.getFiles().iterator();
             while (it.hasNext()) {
                 File fit = it.next();
-                if (fit == f) {
+                //if (fit == f) {
+                if (fit.getfName().equals(f.getfName())&&fit.getNr().equals(f.getNr()) ) {
                     it.remove();
                     if (e.getFiles().size() == 0) {
                         i.remove();
