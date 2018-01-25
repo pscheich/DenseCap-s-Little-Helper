@@ -34,9 +34,20 @@ public class Viewer {
 
     private static JScrollPane scrollPane;
     private static ArrayList<File> delList;
-public static void main(String[] args){
+
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args){
     show(new Entry(),false);
 }
+
+    /**
+     *
+     * @param e
+     * @param input
+     */
     public static void show(Entry e, boolean input) {
         delList = new ArrayList<>();
         JFrame F = new JFrame();
@@ -81,10 +92,12 @@ public static void main(String[] args){
     private static void setscrollPane(Entry e) {
 
         JPanel panel = new JPanel(new GridLayout((e.getFiles().size() / 8) + 1, 8, 0, 0));
+        panel.setMaximumSize(new Dimension(720, 600));
         scrollPane = new JScrollPane(panel,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setMaximumSize(new Dimension(720, 720));
+        scrollPane.setPreferredSize(new Dimension(720, 600));
+        scrollPane.setMaximumSize(new Dimension(720, 600));
         for (File f : e.getFiles()) {
             JButton b = new JButton(getIcon(f));
             b.setPreferredSize(new Dimension(120, 120));

@@ -5,6 +5,7 @@
  */
 package densecapslittlehelper;
 
+import java.awt.Component;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -109,14 +110,14 @@ public class Utils {
     /**
      *
      */
-    public static void open() {
+    public static void open(Component mv) {
         GlobVars.inputList.clear();
         GlobVars.outputList.clear();
         ObjectInputStream ois = null;
         FileInputStream fis = null;
         try {
             GlobVars.jfc = new JFileChooser();
-            int foo = GlobVars.jfc.showOpenDialog(null);
+            int foo = GlobVars.jfc.showOpenDialog(mv);
             if (foo == JFileChooser.APPROVE_OPTION) {
                 String path = GlobVars.jfc.getSelectedFile().getAbsolutePath();
                 fis = new FileInputStream(path);
@@ -149,12 +150,12 @@ public class Utils {
     /**
      *
      */
-    public static void save() {
+    public static void save(Component mv) {
         ObjectOutputStream oos = null;
         FileOutputStream fos = null;
         try {
             GlobVars.jfc = new JFileChooser();
-            int foo = GlobVars.jfc.showSaveDialog(null);
+            int foo = GlobVars.jfc.showSaveDialog(mv);
             if (foo == JFileChooser.APPROVE_OPTION) {
                 String path = GlobVars.jfc.getSelectedFile().getAbsolutePath();
                 fos = new FileOutputStream(path);
@@ -182,12 +183,21 @@ public class Utils {
         }
     }
 
+    /**
+     *
+     * @param arr
+     * @return
+     */
     public static ArrayList<String> getListtoStrings(ArrayList<Entry> arr) {
         ArrayList<String> ret = new ArrayList<String>();
         arr.forEach(e -> ret.add(e.getText1()));
         return ret;
     }
 
+    /**
+     *
+     * @param f
+     */
     public static void deleteFileFromInput(File f) {
         Iterator<Entry> i = GlobVars.inputList.iterator();
         outerloop:
@@ -208,7 +218,12 @@ public class Utils {
             }
         }
     }
-        public static void deleteFileFromOutput(File f) {
+
+    /**
+     *
+     * @param f
+     */
+    public static void deleteFileFromOutput(File f) {
         Iterator<Entry> i = GlobVars.outputList.iterator();
         outerloop:
         while (i.hasNext()) {
@@ -228,6 +243,11 @@ public class Utils {
         }
     }
 
+    /**
+     *
+     * @param passedMap
+     * @return
+     */
     public static LinkedHashMap<String, Integer> sortHashMapByValues(
             HashMap<String, Integer> passedMap) {
         List<String> mapKeys = new ArrayList<>(passedMap.keySet());
