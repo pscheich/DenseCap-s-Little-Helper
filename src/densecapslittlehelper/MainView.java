@@ -135,7 +135,7 @@ public class MainView extends javax.swing.JFrame {
         jTextField1.setText("DensCap's Little Helper");
         jTextField1.setEnabled(false);
 
-        jTextField2.setText("24.01.2018 v 0.3.1");
+        jTextField2.setText("25.01.2018 v 0.3.2");
         jTextField2.setEnabled(false);
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
@@ -472,13 +472,14 @@ public class MainView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         GlobVars.jfc = new JFileChooser();
-        GlobVars.jfc.showOpenDialog(null);
+        if (GlobVars.jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
         GlobVars.inputPathCSV = GlobVars.jfc.getSelectedFile().getAbsolutePath();
         jTextField3.setText(GlobVars.inputPathCSV);
         GlobVars.inputList.clear();
         GlobVars.outputList.clear();
         CSVReader.doIt(GlobVars.inputPathCSV, GlobVars.lineSep, GlobVars.splitSep);
         updateLists();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -550,11 +551,11 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField5KeyPressed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        Utils.save();
+        Utils.save(this);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        Utils.open();
+        Utils.open(this);
         GlobVars.inputPathCSV = "";
         updateLists();
     }//GEN-LAST:event_jButton11ActionPerformed
@@ -634,7 +635,7 @@ public class MainView extends javax.swing.JFrame {
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if (evt.getClickCount() == 2) {
-            Viewer.show(jList1.getSelectedValue(),true);
+            Viewer.show(jList1.getSelectedValue(), true);
             search(input, GlobVars.inputList, jTextField4);
         }
     }//GEN-LAST:event_jList1MouseClicked
@@ -646,14 +647,15 @@ public class MainView extends javax.swing.JFrame {
         // disable the "All files" option.
         //
         GlobVars.jfc.setAcceptAllFileFilterUsed(false);
-        GlobVars.jfc.showOpenDialog(this);
-        GlobVars.inputPathIMG = GlobVars.jfc.getSelectedFile().toString();
-        jTextField8.setText(GlobVars.inputPathIMG);
+        if (GlobVars.jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            GlobVars.inputPathIMG = GlobVars.jfc.getSelectedFile().toString();
+            jTextField8.setText(GlobVars.inputPathIMG);
+        }
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
         if (evt.getClickCount() == 2) {
-            Viewer.show(jList2.getSelectedValue(),false);
+            Viewer.show(jList2.getSelectedValue(), false);
             search(output, GlobVars.outputList, jTextField5);
         }
     }//GEN-LAST:event_jList2MouseClicked

@@ -18,7 +18,11 @@ public class GlobVars {
      *
      */
     public static  String inputPathCSV="";
-public static  String inputPathIMG="";
+
+    /**
+     *
+     */
+    public static  String inputPathIMG="";
     /**
      *
      */
@@ -29,6 +33,10 @@ public static  String inputPathIMG="";
      */
     public static  ArrayList<Entry> outputList = new ArrayList<>();
     //public static JFileChooser jfc = new JFileChooser();
+
+    /**
+     *
+     */
     public static JFileChooser jfc = new JFileChooser();
 
     /**
