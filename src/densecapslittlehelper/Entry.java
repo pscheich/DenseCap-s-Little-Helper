@@ -93,22 +93,7 @@ public class Entry implements Comparable<Entry>, Serializable {
         //descending order
         return foo - this.files.size();
     }
-//str = str.replaceAll("\\D+","");
-//{
-//  "id": [int], Unique identifier for this image,
-//  "regions": [
-//    {
-//      "id": [int] Unique identifier for this region,
-//      "image": [int] ID of the image to which this region belongs,
-//      "height": [int] Height of the region in pixels,
-//      "width": [int] Width of the region in pixels,
-//      "phrase": [string] Caption for this region,
-//      "x": [int] x-coordinate of the upper-left corner of the region,
-//      "y": [int] y-coordinate of the upper-left corner of the region,
-//    },
-//    ...
-//  ]
-//}
+
 
     /**
      *
@@ -117,17 +102,20 @@ public class Entry implements Comparable<Entry>, Serializable {
     public String getJson() {
         String ret = "";
         for (File f : files) {
-            String image = (f.getfName().replaceAll("[\\D.]", ""))+f.getNr();
-            ret += "\t{\"id\": " + image+f.getNr()  + ","
+            String image = (f.getfName().replaceAll("[\\D.]", "")) + f.getNr();
+            ret += "\t{\"id\": " + image + f.getNr() + ","
                     + " \"image\": " + image + ","
-                    + " \"height\": " + (f.getBox().getValues()[3]-f.getBox().getValues()[2]) + ","
-                    + " \"width\": " + (f.getBox().getValues()[1]-f.getBox().getValues()[0]) + ","
+                    + " \"height\": " + (f.getBox().getValues()[3] - f.getBox().getValues()[2]) + ","
+                    + " \"width\": " + (f.getBox().getValues()[1] - f.getBox().getValues()[0]) + ","
                     + " \"phrase\": \"" + this.text1 + "\","
                     + " \"x\": " + f.getBox().getValues()[0] + ","
                     + " \"y\": " + f.getBox().getValues()[2] + "}, \n";
         }
         return ret;
     }
+
+
+
 
     /**
      *

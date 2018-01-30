@@ -151,7 +151,6 @@ public class Utils {
     /**
      *
      * @param mv
-     * @param mv
      */
     public static void save(Component mv) {
         ObjectOutputStream oos = null;
@@ -210,7 +209,7 @@ public class Utils {
             while (it.hasNext()) {
                 File fit = it.next();
                 //if (fit == f) {
-                if (fit.getfName().equals(f.getfName())&&fit.getNr().equals(f.getNr()) ) {
+                if (fit.getfName().equals(f.getfName()) && fit.getNr().equals(f.getNr())) {
                     it.remove();
                     if (e.getFiles().size() == 0) {
                         i.remove();
@@ -280,4 +279,73 @@ public class Utils {
         }
         return sortedMap;
     }
+    //str = str.replaceAll("\\D+","");
+//{
+//  "id": [int], Unique identifier for this image,
+//  "regions": [
+//    {
+//      "id": [int] Unique identifier for this region,
+//      "image": [int] ID of the image to which this region belongs,
+//      "height": [int] Height of the region in pixels,
+//      "width": [int] Width of the region in pixels,
+//      "phrase": [string] Caption for this region,
+//      "x": [int] x-coordinate of the upper-left corner of the region,
+//      "y": [int] y-coordinate of the upper-left corner of the region,
+//    },
+//    ...
+//  ]
+//}
+    //str.replaceAll("\\D+","");
+
+    // [{"regions": [{"region_id": 1382, "width": 82, "height": 139, "image_id": 1, "phrase": "the clock is green in colour", "y": 57, "x": 421}, {"region_id": 1383, "width": 182, "height": 109, "image_id": 1, "phrase": "shade is along the street ", "y": 372, "x": 194}, {"region_id": 1384, "width": 61, "height": 30, "image_id": 1, "phrase": "man is wearing sneakers", "y": 491, "x": 241}, {"region_id": 1385, "width": 36, "height": 36, "image_id": 1, "phrase": "cars headlights are off", "y": 377, "x": 61
+
+    /**
+     *
+     * @return
+     */
+    public static String getJsonExport() {
+        String ret = "";
+        ArrayList<String> fileList = new ArrayList<>();
+        for (Entry e : GlobVars.outputList) {
+            for (File f : e.getFiles()) {
+                if (!fileList.contains(f.getfName())) {
+                    fileList.add(f.getfName());
+                }
+            }
+        }
+        int counter = 0;
+        ret += "[";
+        ret += "{";
+                    ret += "\"regions\":[\n";
+        for (String str : fileList) {
+
+            //ret+="\"id\": "+str.replaceAll("\\D+","")+"\n";
+
+            for (Entry e : GlobVars.outputList) {
+                for (File f : e.getFiles()) {
+                    if (f.getfName().equals(str)) {
+                        counter++;
+                        ret += "{";
+                        ret += "\"id\": " + counter + ",";
+                        ret += "\"image\": " + str.replaceAll("\\D+", "") + ",";
+                        ret += "\"height\": " + (f.getBox().getValues()[3] - f.getBox().getValues()[2]) + ",";
+                        ret += "\"width\": " + (f.getBox().getValues()[1] - f.getBox().getValues()[0]) + ",";
+                        ret += "\"phrase\": \"" + e.getText1() + "\",";
+                        ret += "\"x\": " + f.getBox().getValues()[0] + ",";
+                        ret += "\"y\": " + f.getBox().getValues()[2] + "";
+                        ret += "},\n";
+                    }
+                }
+            }
+           
+           
+
+        }
+         ret = ret.substring(0, ret.length() - 2);//Letztes Komma löschen
+         ret += "\n]";
+        ret += "}";
+        ret += "]";
+        return ret;
+    }
+
 }

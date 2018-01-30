@@ -131,7 +131,7 @@ public class MainView extends javax.swing.JFrame {
         jTextField1.setText("DensCap's Little Helper");
         jTextField1.setEnabled(false);
 
-        jTextField2.setText("30.01.2018 v 0.4.0");
+        jTextField2.setText("30.01.2018 v 0.4.1");
         jTextField2.setEnabled(false);
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
@@ -520,7 +520,7 @@ public class MainView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        Export exp = new Export(this, true, Utils.getExport());
+        Export exp = new Export(this, true, Utils.getJsonExport());
         exp.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
