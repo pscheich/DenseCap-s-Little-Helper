@@ -7,8 +7,6 @@ package densecapslittlehelper;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Panel;
@@ -22,7 +20,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -39,9 +36,9 @@ public class Viewer {
      *
      * @param args
      */
-    public static void main(String[] args){
-    show(new Entry(),false);
-}
+    public static void main(String[] args) {
+        show(new Entry(), false);
+    }
 
     /**
      *
@@ -134,8 +131,8 @@ public class Viewer {
         BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         dst.getGraphics().drawImage(image, 0, 0, w, h, x, y, x + w, y + h, null);
 
-        icon = new ImageIcon(resizeImage((Image) dst, 120, 120, true));
-        //  icon = new ImageIcon(dst.getScaledInstance(xx, yy, java.awt.Image.SCALE_SMOOTH));
+        icon = new ImageIcon(resizeImage((Image) dst, 120, 120, false));
+        //icon = new ImageIcon(icon.getScaledInstance(xx, yy, java.awt.Image.SCALE_SMOOTH));
         // JLabel l = new JLabel(icon);
         return icon;
     }
@@ -165,17 +162,35 @@ public class Viewer {
         }
         int currentHeight = image.getHeight(null);
         int currentWidth = image.getWidth(null);
-        int expectedWidth = (height * currentWidth) / currentHeight;
-        //Size will be set to the height
-        //unless the expectedWidth is greater than the width and the constraint is maximum
-        //or the expectedWidth is less than the width and the constraint is minimum
-        int size = height;
-        if (max && expectedWidth > width) {
-            size = width;
-        } else if (!max && expectedWidth < width) {
-            size = width;
+        int newHeight = 0;
+        int newWidth = 0;
+        if (currentHeight > currentWidth) {
+            newHeight = height;
+            newWidth = height * currentWidth / currentHeight;
+        } else if (currentHeight < currentWidth) {
+            newHeight = width / currentWidth * currentHeight;
+            newWidth = width;
+        } else {
+            newHeight = height;
+            newWidth = width;
         }
-        return resizeImageBy(image, size, (size == width));
+//        int expectedWidth = (height * currentWidth) / currentHeight;
+//        //Size will be set to the height
+//        //unless the expectedWidth is greater than the width and the constraint is maximum
+//        //or the expectedWidth is less than the width and the constraint is minimum
+//        int size = height;
+//        if (max && expectedWidth > width) {
+//            size = width;
+//        } else if (!max && expectedWidth < width) {
+//            size = width;
+//        }
+if(newHeight == 0 ){
+    newHeight=1;
+}
+if(newWidth == 0 ){
+    newWidth=1;
+}
+        return image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
     }
 
     /**

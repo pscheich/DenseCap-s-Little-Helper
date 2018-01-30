@@ -9,11 +9,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import javax.swing.DefaultListModel;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -72,7 +69,6 @@ public class MainView extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
-        jButton12 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jTextField5 = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
@@ -135,7 +131,7 @@ public class MainView extends javax.swing.JFrame {
         jTextField1.setText("DensCap's Little Helper");
         jTextField1.setEnabled(false);
 
-        jTextField2.setText("25.01.2018 v 0.3.2");
+        jTextField2.setText("30.01.2018 v 0.4.0");
         jTextField2.setEnabled(false);
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
@@ -293,13 +289,6 @@ public class MainView extends javax.swing.JFrame {
             }
         });
 
-        jButton12.setText("check images");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -319,8 +308,7 @@ public class MainView extends javax.swing.JFrame {
                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -337,8 +325,6 @@ public class MainView extends javax.swing.JFrame {
                 .addGap(162, 162, 162)
                 .addComponent(jButton7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton10)
@@ -602,37 +588,6 @@ public class MainView extends javax.swing.JFrame {
         exp.setVisible(true);
     }//GEN-LAST:event_info1ActionPerformed
 
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        int count = 0;
-        String text = "";
-        for (Entry e : GlobVars.inputList) {
-            Iterator<File> it = e.getFiles().iterator();
-            while (it.hasNext()) {
-                File f = it.next();
-                if (f.getBox().getValues()[0] == f.getBox().getValues()[1] || f.getBox().getValues()[2] == f.getBox().getValues()[3]) {
-                    text += e.getText1() + "\n";
-                    it.remove();
-                    count++;
-                }
-            }
-        }
-        for (Entry e : GlobVars.outputList) {
-            Iterator<File> it = e.getFiles().iterator();
-            while (it.hasNext()) {
-                File f = it.next();
-                if (f.getBox().getValues()[0] == f.getBox().getValues()[1] || f.getBox().getValues()[2] == f.getBox().getValues()[3]) {
-                    text += e.getText1() + "\n";
-                    it.remove();
-                    count++;
-                }
-            }
-        }
-        JOptionPane.showMessageDialog(this,
-                "Found and delete " + count + " Images with no height or width. \n" + text,
-                "Warning",
-                JOptionPane.WARNING_MESSAGE);
-    }//GEN-LAST:event_jButton12ActionPerformed
-
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         if (evt.getClickCount() == 2) {
             Viewer.show(jList1.getSelectedValue(), true);
@@ -729,7 +684,6 @@ public class MainView extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

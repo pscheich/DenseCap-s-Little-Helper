@@ -109,6 +109,7 @@ public class Utils {
 
     /**
      *
+     * @param mv
      */
     public static void open(Component mv) {
         GlobVars.inputList.clear();
@@ -149,6 +150,8 @@ public class Utils {
 
     /**
      *
+     * @param mv
+     * @param mv
      */
     public static void save(Component mv) {
         ObjectOutputStream oos = null;
