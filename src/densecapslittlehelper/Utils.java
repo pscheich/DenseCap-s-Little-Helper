@@ -298,7 +298,6 @@ public class Utils {
     //str.replaceAll("\\D+","");
 
     // [{"regions": [{"region_id": 1382, "width": 82, "height": 139, "image_id": 1, "phrase": "the clock is green in colour", "y": 57, "x": 421}, {"region_id": 1383, "width": 182, "height": 109, "image_id": 1, "phrase": "shade is along the street ", "y": 372, "x": 194}, {"region_id": 1384, "width": 61, "height": 30, "image_id": 1, "phrase": "man is wearing sneakers", "y": 491, "x": 241}, {"region_id": 1385, "width": 36, "height": 36, "image_id": 1, "phrase": "cars headlights are off", "y": 377, "x": 61
-
     /**
      *
      * @return
@@ -315,10 +314,10 @@ public class Utils {
         }
         int counter = 0;
         ret += "[";
-        ret += "{";
-                    ret += "\"regions\":[\n";
-        for (String str : fileList) {
 
+        for (String str : fileList) {
+            ret += "{";
+            ret += "\"regions\":[\n";
             //ret+="\"id\": "+str.replaceAll("\\D+","")+"\n";
 
             for (Entry e : GlobVars.outputList) {
@@ -337,13 +336,13 @@ public class Utils {
                     }
                 }
             }
-           
-           
+            ret = ret.substring(0, ret.length() - 2);//Letztes Komma löschen
+            ret += "\n],";
+            ret += "\"id\": " + str.replaceAll("\\D+", "") + "";
+            ret += "},\n";
 
         }
-         ret = ret.substring(0, ret.length() - 2);//Letztes Komma löschen
-         ret += "\n]";
-        ret += "}";
+        ret = ret.substring(0, ret.length() - 2);//Letztes Komma löschen
         ret += "]";
         return ret;
     }
