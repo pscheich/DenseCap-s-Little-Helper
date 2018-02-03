@@ -31,7 +31,7 @@ import javax.swing.SwingUtilities;
  * @author scheich
  */
 public class Viewer {
-
+    
     private static JScrollPane scrollPane;
     private static ArrayList<File> delList;
 
@@ -52,7 +52,7 @@ public class Viewer {
         delList = new ArrayList<>();
         JFrame F = new JFrame();
         JDialog d = new JDialog(F, "Viewer", true);
-
+        
         Panel all = new Panel();
         setscrollPane(e, F);
         all.add(scrollPane);
@@ -81,29 +81,30 @@ public class Viewer {
         });
         footer.add(bdel);
         footer.add(bclose);
-
+        
         all.add(footer);
         d.add(all, BorderLayout.NORTH);
         d.pack();
         d.setVisible(true);
-
+        
     }
-
+    
     private static void setscrollPane(Entry e, JFrame frame) {
-
+        
         JPanel panel = new JPanel(new GridLayout((e.getFiles().size() / 8) + 1, 8, 0, 0));
-        panel.setMaximumSize(new Dimension(720, 600));
+        int h= ((e.getFiles().size() / 8) + 1)*120;
+        panel.setPreferredSize(new Dimension(960, h));
         scrollPane = new JScrollPane(panel,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setPreferredSize(new Dimension(720, 600));
-        scrollPane.setMaximumSize(new Dimension(720, 600));
+        //scrollPane.setPreferredSize(new Dimension(960, 600));
+        scrollPane.setPreferredSize(new Dimension(960, 600));
         for (File f : e.getFiles()) {
             JButton b = new JButton(getIconSmall(f));
-            b.setPreferredSize(new Dimension(120, 120));
+            b.setSize(new Dimension(120, 120));
+            b.setMaximumSize(new Dimension(120, 120));
             b.addActionListener(new ActionListener() {
-      
-
+                
                 @Override
                 public void actionPerformed(ActionEvent ae) {
                     if (delList.contains(f)) {
@@ -114,44 +115,43 @@ public class Viewer {
                         b.setIcon(new javax.swing.ImageIcon(getClass().getResource("/densecapslittlehelper/trash.png")));
                     }
                 }
-
+                
             }
-                   
-            ); 
-            b.addMouseListener(new MouseListener(){
+            );
+            b.addMouseListener(new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent me) {
-                   if(me.getButton()==MouseEvent.BUTTON3){
-                       new ImageViewer(frame, true, getIcon(f)).setVisible(true);
-                   }
+                    if (me.getButton() == MouseEvent.BUTTON3) {
+                        new ImageViewer(frame, true, getIcon(f)).setVisible(true);
+                    }
                 }
-
+                
                 @Override
                 public void mousePressed(MouseEvent me) {
-                  
+                    
                 }
-
+                
                 @Override
                 public void mouseReleased(MouseEvent me) {
-                   
+                    
                 }
-
+                
                 @Override
                 public void mouseEntered(MouseEvent me) {
-                  
+                    
                 }
-
+                
                 @Override
                 public void mouseExited(MouseEvent me) {
-                 
+                    
                 }
-                        
-                    });
+                
+            });
             panel.add(b);
         }
-
+        
     }
-
+    
     private static ImageIcon getIcon(File f) {
         String file = GlobVars.inputPathIMG;
         ImageIcon icon = new ImageIcon(file + "/" + f.getfName());
@@ -167,11 +167,10 @@ public class Viewer {
 
         BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         dst.getGraphics().drawImage(image, 0, 0, w, h, x, y, x + w, y + h, null);
-
-       
+        
         return new ImageIcon(((Image) dst).getScaledInstance(-1, -1, Image.SCALE_SMOOTH));
     }
-
+    
     private static ImageIcon getIconSmall(File f) {
         String file = GlobVars.inputPathIMG;
         ImageIcon icon = new ImageIcon(file + "/" + f.getfName());
@@ -187,7 +186,7 @@ public class Viewer {
 
         BufferedImage dst = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         dst.getGraphics().drawImage(image, 0, 0, w, h, x, y, x + w, y + h, null);
-
+        
         icon = new ImageIcon(resizeImage((Image) dst, 120, 120, false));
         //icon = new ImageIcon(icon.getScaledInstance(xx, yy, java.awt.Image.SCALE_SMOOTH));
         // JLabel l = new JLabel(icon);
@@ -212,7 +211,7 @@ public class Viewer {
         } else if (width > 0 && height < 0) {
             return resizeImageBy(image, width, true);
         } else if (width < 0 && height < 0) {
-
+            
             return image;
             //alternatively you can use System.err.println("");
             //or you could just ignore this case
@@ -225,7 +224,7 @@ public class Viewer {
             newHeight = height;
             newWidth = height * currentWidth / currentHeight;
         } else if (currentHeight < currentWidth) {
-            newHeight = width  * currentHeight / currentWidth;
+            newHeight = width * currentHeight / currentWidth;
             newWidth = width;
         } else {
             newHeight = height;
