@@ -14,6 +14,8 @@
  - *open file / save file* opens or saves the serialized lists
  - *export* shows the json file in visualgenome style
 
+ - * Double Click shows all pictures of a group
+ - * Right Click in the Viewer opens the picture
 **External links**
 
  - https://github.com/sgp715/simple_image_annotator
